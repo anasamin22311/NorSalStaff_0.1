@@ -1,0 +1,99 @@
+﻿@model NorSalStaff_0._1.ViewModels.Account.UsersViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>User <img src="~/img/Users/@Model.Image" alt="User Img" style="width:40px;height:40px;border-radius: 7%;" /> '<strong>@Model.UserName</strong>' Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Salary)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Target)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Target)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Achieved)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Achieved)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SWWU)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SWWU)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Roles)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Roles.Any())
+            {
+                for (int i = 0; i < Model.Roles.Count(); i++)
+                {
+                    if (i == 0)
+                    {
+                        @Html.DisplayFor(model => model.Roles[i])
+                    }
+                    else if(i == Model.Roles.Count() - 1)
+                    {
+                        <span> &amp; </span>@Html.DisplayFor(model => model.Roles[i])
+                    }
+                    else
+                    {
+                        <span>, </span>@Html.DisplayFor(model => model.Roles[i])
+                    }
+                }
+            }
+            else
+            {
+                <p>No roles associated with this user</p>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

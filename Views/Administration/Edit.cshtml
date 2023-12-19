@@ -1,0 +1,148 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using NorSalStaff_0._1.Models.UserModels
+@inject RoleManager<IdentityRole> roleManager
+@inject UserManager<ApplicationUser> userManager
+@model List<NorSalStaff_0._1.ViewModels.Administration.EditRoleViewModel>
+
+@{
+    ViewData["Title"] = "Edit";
+    IdentityRole role = ViewBag.role;
+}
+
+<!--<h1>Edit</h1>
+
+<h4>Edit Role '@role.Name'</h4>
+<hr />
+
+<div class="row">
+    <form asp-action="Edit" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-12">
+            <div class="card" style="width: 1111px;">-->
+                @*<div class="row">*@
+                <!--<div class="card-header ">
+                    <div class="form-group">
+                        <label asp-for="@role.Id" for="@role.Id" class="control-label">
+                        </label>
+                        <input asp-for="@role.Id" id="@role.Id" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@role.Name" for="@role.Name" class="control-label">
+                        </label>
+                        <input asp-for="@role.Name" id="@role.Name" class="form-control" />
+                        <span asp-validation-for="@role.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5>Users List</h5>
+                    foreach (var user in Model)
+                    {
+                        <div class="row m-1">
+                            <input type="hidden" asp-for="user.UserId" />
+                            <div class="form-check col-12">
+                                <label class="form-check-label">
+                                    <input asp-for="user.IsChecked"  class="form-check-input" />
+                                    user.User.UserName user.User.Email
+                                </label>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="card-footer">
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>-->
+                @*</div>*@
+            <!--</div>
+        </div>
+    </form>
+</div>-->
+
+<div class="container">
+    <h1>Edit</h1>
+    <h4>Edit Role '@role.Name'</h4>
+    <hr />
+    <form asp-action="Edit" method="post" class="mt-3" style="padding: 10px; background-color: whitesmoke; border-radius: 3px; border: 1px solid #797a7b21;">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div style="padding: 20px 10px 1px 10px;background-color: mintcream;border-radius: 2px;margin-left: -10px;margin-right: -10px;margin-top: -9px;border-bottom: 1px solid #e5e5e5;">
+            <div class="form-group row">
+                <label asp-for="@role.Id" for="@role.Id" class="col-sm-2 col-form-label">ID:</label>
+                <div class="col-sm-10">
+                    <input type="hidden" asp-for="@role.Id" id="@role.Id" class="form-control" name="roleId" />
+                    <input asp-for="@role.Id" id="@role.Id" class="form-control" disabled name="roleId" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="@role.Name" for="@role.Name" class="col-sm-2 col-form-label">Role Name:</label>
+                <div class="col-sm-10">
+                    <input asp-for="@role.Name" id="@role.Name" class="form-control" name="roleName" />
+                </div>
+                <span asp-validation-for="@role.Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row" style=" padding: inherit; border-radius: 2px; margin-left: -9px; margin-right: -9px; ">
+            <h5>Users List:</h5>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <input type="hidden" asp-for="@Model[i].UserId" />
+                <input type="hidden" asp-for="@Model[i].User" />
+
+                <div class="form-check col-12">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <input asp-for="@Model[i].IsChecked" id="@Model[i].UserId" class="form-check-input" style="position: relative; width: 35px;" />
+                            <label for="@Model[i].UserId" class="form-check-label col-form-label">
+                                Name: @Model[i].User.UserName
+                            </label>
+                        </div>
+                        <label for="@Model[i].UserId" class="form-check-label col-sm-10 col-form-label">
+                            Email: @Model[i].User.Email
+                        </label>
+                    </div>
+                </div>
+            }
+        </div>
+        <hr />
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" style="width:75px;" />
+            <a asp-action="Index" class="btn btn-danger" style="width:75px;">Cancel</a>
+        </div>
+    </form>
+</div>
+
+
+@*<div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="UserId" />
+                <div class="form-group">
+                    <label asp-for="UserName" class="control-label"></label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsChecked" /> @Html.DisplayNameFor(model => model.IsChecked)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+    </div>*@
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,123 @@
+﻿@model NorSalStaff_0._1.ViewModels.Administration.DetailRoleViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@*<h1>Details</h1>
+<div>
+    <h4>Role ID: @Model.Id</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Role.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Role.Name)
+        </dd>
+    </dl>
+    @if (Model.Users.Any())
+    {
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Users)
+            </dt>
+            @foreach(var user in Model.Users)
+                {
+                    <dd class="col-sm-10">
+                        @user.UserName
+                        @user.Email
+                    </dd>
+                }
+        </dl>
+    }
+    else
+    {
+        <dl class="row">
+            <dt class="col-sm-2">
+                No Users
+            </dt>
+            <dd class="col-sm-10">
+                There are no users associated with this role
+            </dd>
+        </dl>
+    }
+</div>
+
+
+
+
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+
+
+
+
+
+
+
+
+<div class="container">
+    <h1>Edit</h1>
+    <h4>Edit Role '@Model.Role.Name'</h4>
+    <hr />
+    <div class="mt-3" style="padding: 10px; background-color: whitesmoke; border-radius: 3px; border: 1px solid #797a7b21;">
+        <div style="padding: 10px 10px 10px 0px;background-color: mintcream;border-radius: 2px;margin-left: -10px;margin-right: -10px;margin-top: -9px;border-bottom: 1px solid #e5e5e5;">
+            <div class="row m-1">
+                <div class="col-sm-2">@Html.DisplayNameFor(model => model.Id)</div>
+                <div class="col-sm-10">
+                    @Html.DisplayFor(model => model.Id)
+                </div>
+            </div>
+            <div class="row m-1">
+                <div class="col-sm-2">@Html.DisplayNameFor(model => model.Role.Name)</div>
+                <div class="col-sm-10">
+                    @Html.DisplayFor(model => model.Role.Name)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row" style=" padding: 10px 10px 0px 0px; border-radius: 2px; margin-left: -9px; margin-right: -9px; ">
+            <h5 style=" margin-left: 15px; ">Users List:</h5>
+            @if (Model.Users.Any())
+            {
+                <div class="form-check col-12" style=" padding-left: 1.75rem; ">
+                    @foreach (var user in Model.Users)
+                    {
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>User name:</label>
+                                @Html.DisplayFor(model => user.UserName)
+                            </div>
+                            <div class="col-sm-9">
+                                <label>Email:</label>
+                                @Html.DisplayFor(model => user.Email)
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="form-check col-12" style=" padding-left: 1.75rem; ">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6>No Users</h6>
+                        </div>
+                        <div class="col-sm-9">
+                            <p>There are no users associated with this role</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <hr />
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" style="width:75px;" />
+            <a asp-action="Index" class="btn btn-danger" style="width:75px;">Cancel</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,142 @@
+﻿@model NorSalStaff_0._1.ViewModels.Account.EditViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+
+<h1>Edit User: '@Model.UserName' <img src="~/img/Users/@Model.SImage" alt="User Img" style="width:45px;height:45px;border-radius: 50%;" /></h1>
+
+<h4>User Information:</h4>
+<hr />
+<div class="row">
+    <div class="col-12">
+        <form enctype="multipart/form-data" asp-action="Edit" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id"/>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="UserName" class="control-label"></label>
+                        <input asp-for="UserName" placeholder="Enter the User's Name" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Roles" class="control-label"></label>
+                        <div class="button-group btn-block">
+                            <button type="button" class="form-control btn border-top border-bottom border-left border-right btn-block btn-default btn-sm" data-toggle="dropdown" style="text-align: left;">Roles</button>
+                            <ul class="dropdown-menu">
+                                @for (int i = 0; i < Model.Roles.ToList().Count(); i++)
+                                {
+                                    <li><input type="hidden" asp-for="Roles[i]" /></li>
+                                    <li><input type="hidden" asp-for="@Model.Roles[i].Id" /></li>
+                                    <li><input type="hidden" asp-for="@Model.Roles[i].RoleName" /></li>
+                                    <li class="m-1"><a href="#" class="small" data-value="@Model.Roles[i].Id" tabIndex="-1" style="text-decoration: none;"><input type="checkbox" asp-for="@Model.Roles[i].IsChecked" />&nbsp;@Model.Roles[i].RoleName</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BirthDate" class="control-label"></label>
+                        <input asp-for="BirthDate" class="form-control" />
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SWWU" class="control-label"></label>
+                        <input asp-for="SWWU" class="form-control" />
+                        <span asp-validation-for="SWWU" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber" class="control-label"></label>
+                        <input asp-for="PhoneNumber" placeholder="Enter the User's Phone Number" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Salary" class="control-label"></label>
+                        <input asp-for="Salary" placeholder="Enter the User's Salary" class="form-control" />
+                        <span asp-validation-for="Salary" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Target" class="control-label"></label>
+                        <input asp-for="Target" placeholder="Enter the User's Salary" class="form-control" />
+                        <span asp-validation-for="Target" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Achieved" class="control-label"></label>
+                        <input asp-for="Achieved" placeholder="Enter the User's Salary" class="form-control" />
+                        <span asp-validation-for="Achieved" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label asp-for="Image" class="control-label"></label>
+                        <div class="custom-file">
+                            <input asp-for="Image" class="form-control custom-file-input" />
+                            <label asp-for="Image" class="custom-file-label">@Model.SImage</label>
+                        </div>
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row col">
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-success m-1" style="width:75px;" />
+                </div>
+                <div class="form-group">
+                    <input type="reset" value="Reset" class="btn btn-primary m-1" style="width:75px;" />
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-danger m-1" asp-area="" asp-controller="Account" asp-action="Index" style="width:75px;">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<select asp-for="Roles" id="Roles" class="form-control">
+    @foreach (var role in Model.Roles)
+    {
+        <option value="@role.Id">
+            @role.Role.Name
+        </option>
+    }
+</select>*@
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next(".custom-file-label").html(fileName);
+            });
+        })
+    </script>
+    <script >
+        var options = [];
+        $('.dropdown-menu a').on('click', function (event) {
+            var $target = $(event.currentTarget),
+                val = $target.attr('data-value'),
+                $inp = $target.find('input'),
+                idx;
+            if ((idx = options.indexOf(val)) > -1) {
+                options.splice(idx, 1);
+                setTimeout(function () { $inp.prop('checked', false) }, 0);
+            } else {
+                options.push(val);
+                setTimeout(function () { $inp.prop('checked', true) }, 0);
+            }
+            $(event.target).blur();
+            console.log(options);
+            return false;
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

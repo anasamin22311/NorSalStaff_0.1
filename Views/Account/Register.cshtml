@@ -1,0 +1,101 @@
+﻿@model NorSalStaff_0._1.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register New User</h1>
+
+<h4>User Information:</h4>
+<hr />
+<div class="row">
+    <div class="col-12">
+        <form enctype="multipart/form-data" asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="UserName" class="control-label"></label><span style="color:red"> *</span>
+                        <input asp-for="UserName" placeholder="Enter the User's Name" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label><span style="color:red"> *</span>
+                        <input asp-for="Email" placeholder="Enter the User's Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label><span style="color:red"> *</span>
+                        <input asp-for="Password" placeholder="Enter the User's Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ConfirmPassword" class="control-label"></label><span style="color:red"> *</span>
+                        <input asp-for="ConfirmPassword" placeholder="Confirm the Password" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber" class="control-label"></label>
+                        <input asp-for="PhoneNumber" placeholder="Enter the User's Phone Number" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BirthDate" class="control-label"></label><span style="color:red"> *</span>
+                        <input asp-for="BirthDate" class="form-control" />
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SWWU" class="control-label"></label><span style="color:red"> *</span>
+                        <input asp-for="SWWU" class="form-control" />
+                        <span asp-validation-for="SWWU" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Salary" class="control-label"></label><span style="color:red"> *</span>
+                        <input asp-for="Salary" placeholder="Enter the User's Salary" class="form-control" />
+                        <span asp-validation-for="Salary" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label asp-for="Image" class="control-label"></label>
+                        <div class="custom-file">
+                            <input asp-for="Image" class="form-control custom-file-input" />
+                            <label asp-for="Image" class="custom-file-label">Choose File...</label>
+                        </div>
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row col">
+                <div class="form-group">
+                    <input type="submit" value="Register" class="btn btn-success m-1" style="width:80px;"/>
+                </div>
+                <div class="form-group">
+                    <input type="reset" value="Reset" class="btn btn-primary m-1" style="width:80px;"/>
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-danger m-1" asp-area="" asp-controller="Home" asp-action="Index"  style="width:80px;">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next(".custom-file-label").html(fileName);
+            });
+        })
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

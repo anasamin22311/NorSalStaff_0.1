@@ -1,0 +1,90 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<IdentityRole>
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<h1>Roles</h1>
+
+@if (Model.Any())
+{
+    <p>
+        <a asp-action="Create">Create New Role</a>
+    </p>
+    @*
+            <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First().Name)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelitem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelitem => item.Name)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    *@
+    @foreach (var role in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                Role Id : @Html.DisplayFor(modelRole => role.Id)
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelRole => role.Name)</h5>
+            </div>
+            <div class="card-footer">
+                <form method="post" asp-action="Delete" asp-route-id="@role.Id">
+                    <a class="btn btn-primary" style="width:75px" asp-action="Edit" asp-route-id="@role.Id">Edit</a>
+                    <a class="btn btn-info" style="width:75px" asp-action="Details" asp-route-id="@role.Id">Details</a>
+
+                    <span id="ConfirmDelete_@role.Id" style="display:none">
+                        <span style="color:red">ARE YOU SURE YOU WANT TO DELETE THIS ROLE '<b>@role.Name</b>'?</span>
+                        <button type="submit" class="btn btn-danger" style="width:75px">Yes</button>
+                        <a href="#!" class="btn btn-primary" style="width:75px" onclick="confirmDelete('@role.Id', false)">No</a>
+                    </span>
+                    <span id="DeleteBtn_@role.Id">
+                        <a href="#!" class="btn btn-danger" style="width:75px" onclick="confirmDelete('@role.Id', true)">Delete</a>
+                    </span>
+                </form>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            No roles to display
+        </div>
+        <div class="card-body">
+            <h5>There is no roles in the database to display.</h5>
+            <br />
+            <a class="btn btn-primary" asp-action="Create">Create a new role?</a>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/js/deleteConfirmation.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
